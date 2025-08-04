@@ -62,6 +62,26 @@ class Renderer {
         this.overlay.classList.remove('hidden');
     }
 
+    // Show pause overlay
+    showPause() {
+        this.overlayTitle.textContent = 'Game Paused';
+        this.overlayMessage.textContent = 'Press SPACE to resume';
+        this.startButton.textContent = 'Resume';
+        this.overlay.classList.remove('hidden');
+        this.overlay.querySelector('.overlay-content').classList.add('paused');
+    }
+
+    // Hide pause overlay
+    hidePause() {
+        this.overlay.classList.add('hidden');
+        this.overlay.querySelector('.overlay-content').classList.remove('paused');
+    }
+
+    // Hide pause overlay
+    hidePause() {
+        this.overlay.classList.add('hidden');
+    }
+
     // Hide overlay
     hideOverlay() {
         this.overlay.classList.add('hidden');

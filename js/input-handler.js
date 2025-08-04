@@ -1,7 +1,8 @@
 // Input handler for keyboard events
 class InputHandler {
-    constructor(gameState) {
+    constructor(gameState, renderer) {
         this.gameState = gameState;
+        this.renderer = renderer;
         this.pressedKeys = new Set();
         this.setupEventListeners();
     }
@@ -27,6 +28,13 @@ class InputHandler {
     // Handle key down events
     handleKeyDown(event) {
         const key = event.key.toLowerCase();
+        
+        // Handle spacebar for pause/resume
+        if (key === ' ') {
+            event.preventDefault(); // Prevent page scrolling
+            this.togglePause();
+            return;
+        }
         
         if (this.gameState.state !== GAME_CONSTANTS.GAME_STATES.PLAYING) {
             return;
@@ -250,6 +258,17 @@ class InputHandler {
     // Clear all pressed keys
     clearPressedKeys() {
         this.pressedKeys.clear();
+    }
+
+    // Toggle pause/resume
+    togglePause() {
+        if (this.gameState.state === GAME_CONSTANTS.GAME_STATES.PLAYING) {
+            this.gameState.pause();
+            this.renderer.showPause();
+        } else if (this.gameState.state === GAME_CONSTANTS.GAME_STATES.PAUSED) {
+            this.gameState.resume();
+            this.renderer.hidePause();
+        }
     }
 
     // Check if a specific key is currently pressed

@@ -11,13 +11,13 @@ const GAME_CONSTANTS = {
     LETTER_SPAWN_WIDTH: 700, // width range for spawning letters
     
     // Game mechanics
-    MAX_LIVES: 3,
+    MAX_LIVES: 2000,
     POINTS_PER_LETTER: 10,
     BONUS_POINTS: 50, // bonus for consecutive correct hits
     
     // Level progression
     LETTERS_PER_LEVEL: 2, // how many new letters to add per level
-    SPEED_INCREASE_PER_LEVEL: 0.2, // speed increase per level
+    SPEED_INCREASE_PER_LEVEL: 0.0, // speed increase per level
     SPAWN_RATE_DECREASE_PER_LEVEL: 100, // milliseconds faster spawning per level
     
     // Level-specific letter sets

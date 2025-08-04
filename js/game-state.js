@@ -163,6 +163,22 @@ class GameState {
         return this.languageMode;
     }
 
+    // Pause the game
+    pause() {
+        if (this.state === GAME_CONSTANTS.GAME_STATES.PLAYING) {
+            this.state = GAME_CONSTANTS.GAME_STATES.PAUSED;
+            this.updateUI();
+        }
+    }
+
+    // Resume the game
+    resume() {
+        if (this.state === GAME_CONSTANTS.GAME_STATES.PAUSED) {
+            this.state = GAME_CONSTANTS.GAME_STATES.PLAYING;
+            this.updateUI();
+        }
+    }
+
     // Get game statistics
     getStats() {
         return {

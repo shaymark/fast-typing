@@ -168,6 +168,16 @@ body {
     color: #ecf0f1;
 }
 
+/* Pause specific styling */
+.overlay-content.paused {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.overlay-content.paused h2 {
+    color: #f39c12;
+}
+
 .btn {
     background: linear-gradient(45deg, #4facfe, #00f2fe);
     color: white;

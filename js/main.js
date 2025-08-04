@@ -15,7 +15,7 @@ class FastTypingGame {
         // Create game components
         this.gameState = new GameState();
         this.renderer = new Renderer(this.gameState);
-        this.inputHandler = new InputHandler(this.gameState);
+        this.inputHandler = new InputHandler(this.gameState, this.renderer);
         this.gameLoop = new GameLoop(this.gameState, this.inputHandler, this.renderer);
 
         // Setup event listeners
@@ -34,7 +34,13 @@ class FastTypingGame {
         const startButton = document.getElementById('startButton');
         if (startButton) {
             startButton.addEventListener('click', () => {
-                this.startGame();
+                if (this.gameState.state === GAME_CONSTANTS.GAME_STATES.PAUSED) {
+                    // Resume game if paused
+                    this.inputHandler.togglePause();
+                } else {
+                    // Start new game
+                    this.startGame();
+                }
             });
         }
 
