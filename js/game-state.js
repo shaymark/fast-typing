@@ -23,6 +23,7 @@ class GameState {
         this.lastSpawnTime = 0;
         this.currentSpawnRate = GAME_CONSTANTS.LETTER_SPAWN_RATE;
         this.currentFallSpeed = GAME_CONSTANTS.LETTER_FALL_SPEED;
+        this.updateUI(); // Update UI after reset
     }
 
     // Add points to score

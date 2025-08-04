@@ -92,20 +92,17 @@ class InputHandler {
     // Check if any letters have reached the bottom
     checkLettersAtBottom() {
         const letters = this.gameState.letters;
-        let lettersAtBottom = 0;
 
-        for (let i = 0; i < letters.length; i++) {
+        for (let i = letters.length - 1; i >= 0; i--) {
             const letter = letters[i];
             
             if (letter.hasReachedBottom() && !letter.isHit) {
-                lettersAtBottom++;
                 letter.hitWrong(); // Mark as wrong hit
+                letter.isHit = true; // Mark as hit so it doesn't count again
+                
+                // Lose a life for each letter that reaches the bottom
+                this.gameState.loseLife();
             }
-        }
-
-        // If 3 or more letters reach bottom, lose a life
-        if (lettersAtBottom >= 3) {
-            this.gameState.loseLife();
         }
     }
 

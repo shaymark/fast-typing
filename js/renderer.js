@@ -35,8 +35,8 @@ class Renderer {
         for (let i = letters.length - 1; i >= 0; i--) {
             const letter = letters[i];
             
-            // Update letter position
-            letter.update();
+            // Update letter position with current fall speed
+            letter.update(currentFallSpeed);
             
             // Check if letter animation is complete and should be removed
             if (letter.isHit && letter.isAnimationComplete()) {
@@ -74,6 +74,14 @@ class Renderer {
             letters[i].remove();
         }
         this.gameState.letters = [];
+        
+        // Also remove any remaining letter elements from DOM
+        const letterElements = this.gameArea.querySelectorAll('.falling-letter');
+        letterElements.forEach(element => {
+            if (element.parentNode) {
+                element.parentNode.removeChild(element);
+            }
+        });
     }
 
     // Show level up notification

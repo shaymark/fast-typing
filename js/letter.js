@@ -21,7 +21,7 @@ class Letter {
     }
 
     // Update letter position
-    update() {
+    update(fallSpeed) {
         if (!this.isHit) {
             this.y += GAME_CONSTANTS.LETTER_FALL_SPEED;
             if (this.element) {
