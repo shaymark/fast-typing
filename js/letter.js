@@ -23,7 +23,7 @@ class Letter {
     // Update letter position
     update(fallSpeed) {
         if (!this.isHit) {
-            this.y += GAME_CONSTANTS.LETTER_FALL_SPEED;
+            this.y += GAME_CONSTANTS.LETTER_FALL_SPEED + fallSpeed;
             if (this.element) {
                 this.element.style.top = this.y + 'px';
             }
