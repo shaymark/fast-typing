@@ -53,7 +53,7 @@ class AdManager {
                     <ins class="adsbygoogle"
                          style="display:inline-block;width:728px;height:90px"
                          data-ad-client="ca-pub-7126582652958122"
-                         data-ad-slot="YOUR_AD_SLOT_ID"></ins>
+                         data-ad-slot="4120419191"></ins>
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
