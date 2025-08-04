@@ -82,6 +82,40 @@ class InputHandler {
             }
         }
         
+        // For Arabic mode, we need to handle Arabic character input
+        if (this.gameState.getLanguageMode() === GAME_CONSTANTS.LANGUAGE_MODES.ARABIC) {
+            // Arabic letters can be input in different ways depending on keyboard layout
+            // We'll check both the direct character and some common Arabic keyboard mappings
+            const arabicMappings = {
+                'ح': ['ح', 'h', 'j'],
+                'ع': ['ع', 'a', 'e'],
+                'د': ['د', 'd', 's'],
+                'ك': ['ك', 'k', 'f'],
+                'س': ['س', 's', 'x'],
+                'ل': ['ل', 'l', 'k'],
+                'ا': ['ا', 'a', 't'],
+                'ف': ['ف', 'f', 'p'],
+                'ج': ['ج', 'j', 'g'],
+                'ه': ['ه', 'h', 'v'],
+                'ر': ['ر', 'r', 'e'],
+                'و': ['و', 'w', 'v'],
+                'ي': ['ي', 'y', 'i'],
+                'ش': ['ش', 'sh', 'w'],
+                'م': ['م', 'm', 'n'],
+                'ن': ['ن', 'n', 'b'],
+                'ق': ['ق', 'q', 'e'],
+                'ب': ['ب', 'b', 'p'],
+                'ت': ['ت', 't', ','],
+                'ص': ['ص', 's', 'c']
+            };
+            
+            for (const letter of availableLetters) {
+                if (arabicMappings[letter] && arabicMappings[letter].includes(key)) {
+                    return true;
+                }
+            }
+        }
+        
         return availableLetters.includes(key);
     }
 
@@ -109,7 +143,7 @@ class InputHandler {
         }
     }
 
-    // Check if a key matches a letter (handles Hebrew mappings)
+    // Check if a key matches a letter (handles Hebrew and Arabic mappings)
     isKeyMatch(letterChar, pressedKey) {
         if (letterChar === pressedKey) {
             return true;
@@ -141,6 +175,35 @@ class InputHandler {
             };
             
             const mappings = hebrewMappings[letterChar];
+            return mappings && mappings.includes(pressedKey);
+        }
+        
+        // For Arabic mode, check keyboard mappings
+        if (this.gameState.getLanguageMode() === GAME_CONSTANTS.LANGUAGE_MODES.ARABIC) {
+            const arabicMappings = {
+                'ح': ['ح', 'h', 'j'],
+                'ع': ['ع', 'a', 'e'],
+                'د': ['د', 'd', 's'],
+                'ك': ['ك', 'k', 'f'],
+                'س': ['س', 's', 'x'],
+                'ل': ['ل', 'l', 'k'],
+                'ا': ['ا', 'a', 't'],
+                'ف': ['ف', 'f', 'p'],
+                'ج': ['ج', 'j', 'g'],
+                'ه': ['ه', 'h', 'v'],
+                'ر': ['ر', 'r', 'e'],
+                'و': ['و', 'w', 'v'],
+                'ي': ['ي', 'y', 'i'],
+                'ش': ['ش', 'sh', 'w'],
+                'م': ['م', 'm', 'n'],
+                'ن': ['ن', 'n', 'b'],
+                'ق': ['ق', 'q', 'e'],
+                'ب': ['ب', 'b', 'p'],
+                'ت': ['ت', 't', ','],
+                'ص': ['ص', 's', 'c']
+            };
+            
+            const mappings = arabicMappings[letterChar];
             return mappings && mappings.includes(pressedKey);
         }
         

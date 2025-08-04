@@ -95,6 +95,8 @@ class GameState {
         
         if (this.languageMode === GAME_CONSTANTS.LANGUAGE_MODES.HEBREW) {
             return GAME_CONSTANTS.HEBREW_LEVEL_LETTERS[level] || GAME_CONSTANTS.HEBREW_LEVEL_LETTERS[maxLevel];
+        } else if (this.languageMode === GAME_CONSTANTS.LANGUAGE_MODES.ARABIC) {
+            return GAME_CONSTANTS.ARABIC_LEVEL_LETTERS[level] || GAME_CONSTANTS.ARABIC_LEVEL_LETTERS[maxLevel];
         } else {
             return GAME_CONSTANTS.LEVEL_LETTERS[level] || GAME_CONSTANTS.LEVEL_LETTERS[maxLevel];
         }
