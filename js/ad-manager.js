@@ -42,6 +42,28 @@ class AdManager {
             this.adProviders.googleAdsense = true;
             return;
         }
+
+        // Fallback to placeholder if AdSense fails
+        this.loadPlaceholder();
+    }
+
+    // Load placeholder ad
+    loadPlaceholder() {
+        this.adBanner.innerHTML = `
+            <div class="ad-placeholder">
+                <div class="ad-label">Ad Loading...</div>
+                <div class="ad-content">
+                    <div class="ad-icon">⏳</div>
+                    <div class="ad-text">
+                        <h3>AdSense Loading</h3>
+                        <p>Publisher ID: ca-pub-7126582652958122</p>
+                        <p>Slot ID: 4120419191</p>
+                        <p>Check console for debug info</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        this.adProviders.customAd = true;
     }
 
     // Load Google AdSense
