@@ -173,6 +173,69 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
+.keyboard-layout {
+    margin-top: 15px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.keyboard-layout.show {
+    display: flex;
+}
+
+.keyboard-layout img {
+    max-width: 100%;
+    max-height: 120px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.keyboard-layout .keyboard-info {
+    color: white;
+    text-align: center;
+    margin-left: 15px;
+}
+
+.keyboard-layout .keyboard-info h4 {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.keyboard-layout .keyboard-info p {
+    font-size: 12px;
+    margin: 2px 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.keyboard-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 4px 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+}
+
+.keyboard-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.keyboard-layout.collapsed img {
+    display: none;
+}
+
 .game-area {
     width: 100%;
     height: calc(100% - 70px);
@@ -315,6 +378,20 @@ body {
     
     .falling-letter {
         font-size: 28px;
+    }
+    
+    .keyboard-layout {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .keyboard-layout img {
+        max-height: 80px;
+        margin-bottom: 10px;
+    }
+    
+    .keyboard-layout .keyboard-info {
+        margin-left: 0;
     }
 }
 

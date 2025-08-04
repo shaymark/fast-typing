@@ -163,7 +163,25 @@ class FastTypingGame {
                 }
             }
             
+            // Show/hide keyboard layout
+            this.updateKeyboardLayout(mode);
+            
             console.log('Language mode changed to:', mode);
+        }
+    }
+
+    // Update keyboard layout display
+    updateKeyboardLayout(mode) {
+        const keyboardLayout = document.getElementById('keyboardLayout');
+        if (!keyboardLayout) return;
+        
+        if (mode === GAME_CONSTANTS.LANGUAGE_MODES.ARABIC) {
+            keyboardLayout.innerHTML = `
+                <img src="arabic_keyboard.png" alt="Arabic Keyboard Layout">
+            `;
+            keyboardLayout.classList.add('show');
+        } else {
+            keyboardLayout.classList.remove('show');
         }
     }
 
