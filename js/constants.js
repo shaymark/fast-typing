@@ -6,9 +6,20 @@ const GAME_CONSTANTS = {
     
     // Letter properties
     LETTER_SIZE: 32,
-    LETTER_SPAWN_RATE: 2000, // milliseconds between letter spawns
-    LETTER_FALL_SPEED: 1, // pixels per frame
+    LETTER_SPAWN_RATE: 10000, // milliseconds between letter spawns
+    LETTER_FALL_SPEED: 0.1, // pixels per frame
     LETTER_SPAWN_WIDTH: 700, // width range for spawning letters
+    
+    // Dynamic game parameters (controlled by sliders)
+    getDynamicSpawnRate() {
+        const slider = document.getElementById('spawnRateSlider');
+        return slider ? parseInt(slider.value) : this.LETTER_SPAWN_RATE;
+    },
+    
+    getDynamicFallSpeed() {
+        const slider = document.getElementById('fallSpeedSlider');
+        return slider ? parseFloat(slider.value) : this.LETTER_FALL_SPEED;
+    },
     
     // Game mechanics
     MAX_LIVES: 2000,

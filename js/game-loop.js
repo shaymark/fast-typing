@@ -127,6 +127,18 @@ class GameLoop {
         return 1000 / (performance.now() - this.lastTime);
     }
 
+    // Update spawn rate from slider
+    updateSpawnRate() {
+        this.gameState.currentSpawnRate = GAME_CONSTANTS.getDynamicSpawnRate();
+        console.log('Game spawn rate updated to:', this.gameState.currentSpawnRate + 'ms');
+    }
+
+    // Update fall speed from slider
+    updateFallSpeed() {
+        this.gameState.currentFallSpeed = GAME_CONSTANTS.getDynamicFallSpeed();
+        console.log('Game fall speed updated to:', this.gameState.currentFallSpeed);
+    }
+
     // Get game statistics
     getStats() {
         return {

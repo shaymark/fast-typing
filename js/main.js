@@ -92,6 +92,9 @@ class FastTypingGame {
         window.addEventListener('resize', () => {
             this.handleResize();
         });
+
+        // Setup slider controls
+        this.setupSliderControls();
     }
 
     // Start a new game
@@ -99,6 +102,10 @@ class FastTypingGame {
         if (this.gameState.state === GAME_CONSTANTS.GAME_STATES.PLAYING) {
             return; // Already playing
         }
+
+        // Update game state with current slider values
+        this.gameState.currentSpawnRate = GAME_CONSTANTS.getDynamicSpawnRate();
+        this.gameState.currentFallSpeed = GAME_CONSTANTS.getDynamicFallSpeed();
 
         this.gameLoop.startNewGame();
         console.log('Game started!');
@@ -167,6 +174,36 @@ class FastTypingGame {
             this.updateKeyboardLayout(mode);
             
             console.log('Language mode changed to:', mode);
+        }
+    }
+
+    // Setup slider controls
+    setupSliderControls() {
+        const spawnRateSlider = document.getElementById('spawnRateSlider');
+        const fallSpeedSlider = document.getElementById('fallSpeedSlider');
+        const spawnRateValue = document.getElementById('spawnRateValue');
+        const fallSpeedValue = document.getElementById('fallSpeedValue');
+
+        if (spawnRateSlider && spawnRateValue) {
+            spawnRateSlider.addEventListener('input', (e) => {
+                spawnRateValue.textContent = e.target.value;
+                console.log('Spawn rate updated to:', e.target.value + 'ms');
+                // Update game if currently playing and not updating sliders programmatically
+                if (this.gameState && this.gameState.state === GAME_CONSTANTS.GAME_STATES.PLAYING && !this.gameState.isUpdatingSliders) {
+                    this.gameLoop.updateSpawnRate();
+                }
+            });
+        }
+
+        if (fallSpeedSlider && fallSpeedValue) {
+            fallSpeedSlider.addEventListener('input', (e) => {
+                fallSpeedValue.textContent = e.target.value;
+                console.log('Fall speed updated to:', e.target.value);
+                // Update game if currently playing and not updating sliders programmatically
+                if (this.gameState && this.gameState.state === GAME_CONSTANTS.GAME_STATES.PLAYING && !this.gameState.isUpdatingSliders) {
+                    this.gameLoop.updateFallSpeed();
+                }
+            });
         }
     }
 

@@ -8,9 +8,10 @@ class GameState {
         this.consecutiveHits = 0;
         this.letters = [];
         this.lastSpawnTime = 0;
-        this.currentSpawnRate = GAME_CONSTANTS.LETTER_SPAWN_RATE;
-        this.currentFallSpeed = GAME_CONSTANTS.LETTER_FALL_SPEED;
+        this.currentSpawnRate = GAME_CONSTANTS.getDynamicSpawnRate();
+        this.currentFallSpeed = GAME_CONSTANTS.getDynamicFallSpeed();
         this.languageMode = GAME_CONSTANTS.LANGUAGE_MODES.ENGLISH;
+        this.isUpdatingSliders = false; // Flag to prevent infinite loops
     }
 
     // Reset game state for new game
@@ -22,9 +23,10 @@ class GameState {
         this.consecutiveHits = 0;
         this.letters = [];
         this.lastSpawnTime = 0;
-        this.currentSpawnRate = GAME_CONSTANTS.LETTER_SPAWN_RATE;
-        this.currentFallSpeed = GAME_CONSTANTS.LETTER_FALL_SPEED;
+        this.currentSpawnRate = GAME_CONSTANTS.getDynamicSpawnRate();
+        this.currentFallSpeed = GAME_CONSTANTS.getDynamicFallSpeed();
         this.updateUI(); // Update UI after reset
+        this.updateSliders(); // Update sliders to reflect current values
     }
 
     // Add points to score
@@ -86,6 +88,7 @@ class GameState {
         );
         
         this.updateUI();
+        this.updateSliders(); // Update sliders to reflect new values
     }
 
     // Get available letters for current level
@@ -149,6 +152,28 @@ class GameState {
         if (scoreElement) scoreElement.textContent = this.score;
         if (levelElement) levelElement.textContent = this.level;
         if (livesElement) livesElement.textContent = this.lives;
+    }
+
+    // Update slider values to reflect current game state
+    updateSliders() {
+        this.isUpdatingSliders = true; // Set flag to prevent infinite loops
+        
+        const spawnRateSlider = document.getElementById('spawnRateSlider');
+        const fallSpeedSlider = document.getElementById('fallSpeedSlider');
+        const spawnRateValue = document.getElementById('spawnRateValue');
+        const fallSpeedValue = document.getElementById('fallSpeedValue');
+
+        if (spawnRateSlider && spawnRateValue) {
+            spawnRateSlider.value = this.currentSpawnRate;
+            spawnRateValue.textContent = this.currentSpawnRate;
+        }
+
+        if (fallSpeedSlider && fallSpeedValue) {
+            fallSpeedSlider.value = this.currentFallSpeed;
+            fallSpeedValue.textContent = this.currentFallSpeed;
+        }
+        
+        this.isUpdatingSliders = false; // Clear flag
     }
 
     // Change language mode
