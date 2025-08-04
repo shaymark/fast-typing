@@ -38,6 +38,22 @@ class FastTypingGame {
             });
         }
 
+        // Language mode buttons
+        const englishModeBtn = document.getElementById('englishMode');
+        const hebrewModeBtn = document.getElementById('hebrewMode');
+        
+        if (englishModeBtn) {
+            englishModeBtn.addEventListener('click', () => {
+                this.setLanguageMode(GAME_CONSTANTS.LANGUAGE_MODES.ENGLISH);
+            });
+        }
+        
+        if (hebrewModeBtn) {
+            hebrewModeBtn.addEventListener('click', () => {
+                this.setLanguageMode(GAME_CONSTANTS.LANGUAGE_MODES.HEBREW);
+            });
+        }
+
         // Keyboard events for starting game
         document.addEventListener('keydown', (event) => {
             if (this.gameState.state === GAME_CONSTANTS.GAME_STATES.MENU) {
@@ -106,6 +122,31 @@ class FastTypingGame {
     resume() {
         if (this.isInitialized) {
             this.gameLoop.resume();
+        }
+    }
+
+    // Set language mode
+    setLanguageMode(mode) {
+        if (this.isInitialized) {
+            this.gameState.setLanguageMode(mode);
+            this.renderer.clearLetters(); // Clear current letters
+            
+            // Update button states
+            const englishModeBtn = document.getElementById('englishMode');
+            const hebrewModeBtn = document.getElementById('hebrewMode');
+            
+            if (englishModeBtn && hebrewModeBtn) {
+                englishModeBtn.classList.remove('active');
+                hebrewModeBtn.classList.remove('active');
+                
+                if (mode === GAME_CONSTANTS.LANGUAGE_MODES.ENGLISH) {
+                    englishModeBtn.classList.add('active');
+                } else {
+                    hebrewModeBtn.classList.add('active');
+                }
+            }
+            
+            console.log('Language mode changed to:', mode);
         }
     }
 

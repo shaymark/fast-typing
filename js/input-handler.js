@@ -47,6 +47,41 @@ class InputHandler {
     // Check if a key is a game key (available letters)
     isGameKey(key) {
         const availableLetters = this.gameState.getAvailableLetters();
+        
+        // For Hebrew mode, we need to handle Hebrew character input
+        if (this.gameState.getLanguageMode() === GAME_CONSTANTS.LANGUAGE_MODES.HEBREW) {
+            // Hebrew letters can be input in different ways depending on keyboard layout
+            // We'll check both the direct character and some common Hebrew keyboard mappings
+            const hebrewMappings = {
+                'ח': ['ח', 'j', 'h'],
+                'ע': ['ע', 'g', 'u'],
+                'ד': ['ד', 'd', 's'],
+                'כ': ['כ', 'f', 'k'],
+                'ס': ['ס', 'x', 'c'],
+                'ל': ['ל', 'k', 'l'],
+                'א': ['א', 't', 'a'],
+                'ף': ['ף', 'p', ';'],
+                'ג': ['ג', 'd', 'g'],
+                'ה': ['ה', 'h', 'v'],
+                'ר': ['ר', 'r', 'e'],
+                'ו': ['ו', 'v', 'w'],
+                'י': ['י', 'y', 'i'],
+                'ש': ['ש', 'a', 'w'],
+                'מ': ['מ', 'n', 'm'],
+                'נ': ['נ', 'n', 'b'],
+                'ק': ['ק', 'e', 'q'],
+                'פ': ['פ', 'p', 'f'],
+                'ת': ['ת', ',', 't'],
+                'צ': ['צ', 'm', 'c']
+            };
+            
+            for (const letter of availableLetters) {
+                if (hebrewMappings[letter] && hebrewMappings[letter].includes(key)) {
+                    return true;
+                }
+            }
+        }
+        
         return availableLetters.includes(key);
     }
 
@@ -59,7 +94,7 @@ class InputHandler {
         for (let i = 0; i < letters.length; i++) {
             const letter = letters[i];
             
-            if (!letter.isHit && letter.char === pressedKey) {
+            if (!letter.isHit && this.isKeyMatch(letter.char, pressedKey)) {
                 // Found a match!
                 letter.hitCorrect();
                 this.gameState.handleCorrectHit();
@@ -72,6 +107,44 @@ class InputHandler {
         if (!foundMatch) {
             this.handleWrongKeyPress(pressedKey);
         }
+    }
+
+    // Check if a key matches a letter (handles Hebrew mappings)
+    isKeyMatch(letterChar, pressedKey) {
+        if (letterChar === pressedKey) {
+            return true;
+        }
+        
+        // For Hebrew mode, check keyboard mappings
+        if (this.gameState.getLanguageMode() === GAME_CONSTANTS.LANGUAGE_MODES.HEBREW) {
+            const hebrewMappings = {
+                'ח': ['ח', 'j', 'h'],
+                'ע': ['ע', 'g', 'u'],
+                'ד': ['ד', 'd', 's'],
+                'כ': ['כ', 'f', 'k'],
+                'ס': ['ס', 'x', 'c'],
+                'ל': ['ל', 'k', 'l'],
+                'א': ['א', 't', 'a'],
+                'ף': ['ף', 'p', ';'],
+                'ג': ['ג', 'd', 'g'],
+                'ה': ['ה', 'h', 'v'],
+                'ר': ['ר', 'r', 'e'],
+                'ו': ['ו', 'v', 'w'],
+                'י': ['י', 'y', 'i'],
+                'ש': ['ש', 'a', 'w'],
+                'מ': ['מ', 'n', 'm'],
+                'נ': ['נ', 'n', 'b'],
+                'ק': ['ק', 'e', 'q'],
+                'פ': ['פ', 'p', 'f'],
+                'ת': ['ת', ',', 't'],
+                'צ': ['צ', 'm', 'c']
+            };
+            
+            const mappings = hebrewMappings[letterChar];
+            return mappings && mappings.includes(pressedKey);
+        }
+        
+        return false;
     }
 
     // Handle wrong key press

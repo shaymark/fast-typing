@@ -10,6 +10,7 @@ class GameState {
         this.lastSpawnTime = 0;
         this.currentSpawnRate = GAME_CONSTANTS.LETTER_SPAWN_RATE;
         this.currentFallSpeed = GAME_CONSTANTS.LETTER_FALL_SPEED;
+        this.languageMode = GAME_CONSTANTS.LANGUAGE_MODES.ENGLISH;
     }
 
     // Reset game state for new game
@@ -91,7 +92,12 @@ class GameState {
     getAvailableLetters() {
         const maxLevel = Math.max(...Object.keys(GAME_CONSTANTS.LEVEL_LETTERS).map(Number));
         const level = Math.min(this.level, maxLevel);
-        return GAME_CONSTANTS.LEVEL_LETTERS[level] || GAME_CONSTANTS.LEVEL_LETTERS[maxLevel];
+        
+        if (this.languageMode === GAME_CONSTANTS.LANGUAGE_MODES.HEBREW) {
+            return GAME_CONSTANTS.HEBREW_LEVEL_LETTERS[level] || GAME_CONSTANTS.HEBREW_LEVEL_LETTERS[maxLevel];
+        } else {
+            return GAME_CONSTANTS.LEVEL_LETTERS[level] || GAME_CONSTANTS.LEVEL_LETTERS[maxLevel];
+        }
     }
 
     // Add a new letter to the game
@@ -143,6 +149,18 @@ class GameState {
         if (livesElement) livesElement.textContent = this.lives;
     }
 
+    // Change language mode
+    setLanguageMode(mode) {
+        this.languageMode = mode;
+        // Clear current letters when changing language
+        this.letters = [];
+    }
+
+    // Get current language mode
+    getLanguageMode() {
+        return this.languageMode;
+    }
+
     // Get game statistics
     getStats() {
         return {
@@ -150,7 +168,8 @@ class GameState {
             level: this.level,
             lives: this.lives,
             consecutiveHits: this.consecutiveHits,
-            lettersInPlay: this.letters.length
+            lettersInPlay: this.letters.length,
+            languageMode: this.languageMode
         };
     }
 } 
