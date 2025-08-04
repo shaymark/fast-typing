@@ -1,0 +1,196 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.game-container {
+    width: 800px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.game-header {
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    padding: 15px 20px;
+    color: white;
+    text-align: center;
+}
+
+.score-board {
+    display: flex;
+    justify-content: space-around;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.score-board > div {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 15px;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+}
+
+.game-area {
+    width: 100%;
+    height: calc(100% - 70px);
+    position: relative;
+    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    overflow: hidden;
+}
+
+.falling-letter {
+    position: absolute;
+    font-size: 32px;
+    font-weight: bold;
+    color: #2c3e50;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    user-select: none;
+    transition: all 0.1s ease;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.falling-letter.correct {
+    color: #27ae60;
+    transform: scale(1.2);
+    animation: correctHit 0.3s ease-out;
+}
+
+.falling-letter.wrong {
+    color: #e74c3c;
+    animation: wrongHit 0.3s ease-out;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    to {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(74, 144, 226, 0.5);
+    }
+}
+
+@keyframes correctHit {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.5); }
+    100% { transform: scale(1.2); opacity: 0; }
+}
+
+@keyframes wrongHit {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1) rotate(-5deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+    75% { transform: scale(1.1) rotate(-5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.overlay-content {
+    text-align: center;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.overlay-content h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.overlay-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #ecf0f1;
+}
+
+.btn {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.game-overlay.hidden {
+    display: none;
+}
+
+/* Responsive design */
+@media (max-width: 850px) {
+    .game-container {
+        width: 95vw;
+        height: 80vh;
+    }
+    
+    .score-board {
+        font-size: 16px;
+    }
+    
+    .falling-letter {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 600px) {
+    .score-board {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .score-board > div {
+        padding: 5px 10px;
+    }
+    
+    .falling-letter {
+        font-size: 24px;
+    }
+} 
